@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Controle do Motor</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>CONTROLE DO MOTOR</h1>
+
+        <p class="subtitle">Sistema de reversão • ESP32</p>
+
+        <!-- STATUS -->
+        <div class="status" id="status">
+            <span class="status-light"></span>
+            <span id="statusText">MOTOR PARADO</span>
+        </div>
+
+        <!-- BOTÃO DO MOTOR -->
+        <div class="motor-area" id="motorArea">
+
+            <div class="motor-ring"></div>
+
+            <div class="arrow"></div>
+
+            <div class="motor-button" id="motorButton">
+                <div class="motor-icon">⚙</div>
+                <div class="motor-text">MOTOR</div>
+            </div>
+
+        </div>
+
+        <!-- CONTROLES -->
+        <div class="controls">
+
+            <button
+                class="control-button activate"
+                onclick="startMotor()">
+                ACIONAR
+            </button>
+
+            <button
+                class="control-button stop"
+                onclick="stopMotor()">
+                PARAR
+            </button>
+
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -20,7 +20,7 @@ export async function enviarComando(valor) {
         await set(ref(db, "motor"), valor);
         return true;
     } catch (erro) {
-        console.error("Erro:", erro);
+        console.error(erro);
         return false;
     }
 }

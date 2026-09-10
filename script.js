@@ -19,6 +19,7 @@ btnLigar.addEventListener("click", async () => {
     }
 
     motorLigado = true;
+
     motorArea.classList.add("running");
     status.classList.add("running");
     statusText.textContent = "MOTOR LIGADO";
@@ -35,6 +36,7 @@ btnParar.addEventListener("click", async () => {
     }
 
     motorLigado = false;
+
     motorArea.classList.remove("running");
     status.classList.remove("running");
     statusText.textContent = "MOTOR PARADO";

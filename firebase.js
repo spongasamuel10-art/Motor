@@ -1,35 +1,41 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { enviarComando } from "./firebase.js";
 
-import {
-    getDatabase,
-    ref,
-    set
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+const motorArea = document.getElementById("motorArea");
+const status = document.getElementById("status");
+const statusText = document.getElementById("statusText");
+const btnLigar = document.getElementById("btnLigar");
+const btnParar = document.getElementById("btnParar");
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDhtqlOgH09L8SG5cbZ1SV1tt7IRd8e394",
-    authDomain: "esp32-luz-c6ad9.firebaseapp.com",
-    databaseURL: "https://esp32-luz-c6ad9-default-rtdb.firebaseio.com",
-    projectId: "esp32-luz-c6ad9",
-    storageBucket: "esp32-luz-c6ad9.firebasestorage.app",
-    messagingSenderId: "291050299879",
-    appId: "1:291050299879:web:788343d4fe86d403e99d42"
-};
+let motorLigado = false;
 
-const app = initializeApp(firebaseConfig);
+btnLigar.addEventListener("click", async () => {
+    if (motorLigado) return;
 
-const database = getDatabase(app);
+    const enviado = await enviarComando(true);
 
-export async function enviarComando(comando) {
-    try {
-        await set(
-            ref(database, "motor/comando"),
-            comando
-        );
-
-        return true;
-    } catch (error) {
-        console.error(error);
-        return false;
+    if (!enviado) {
+        alert("Erro ao comunicar com o Firebase.");
+        return;
     }
-}
+
+    motorLigado = true;
+    motorArea.classList.add("running");
+    status.classList.add("running");
+    statusText.textContent = "MOTOR LIGADO";
+});
+
+btnParar.addEventListener("click", async () => {
+    if (!motorLigado) return;
+
+    const enviado = await enviarComando(false);
+
+    if (!enviado) {
+        alert("Erro ao comunicar com o Firebase.");
+        return;
+    }
+
+    motorLigado = false;
+    motorArea.classList.remove("running");
+    status.classList.remove("running");
+    statusText.textContent = "MOTOR PARADO";
+});

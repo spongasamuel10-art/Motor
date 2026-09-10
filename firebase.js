@@ -1,41 +1,19 @@
-import { enviarComando } from "./firebase.js";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set } from "firebase/database";
 
-const motorArea = document.getElementById("motorArea");
-const status = document.getElementById("status");
-const statusText = document.getElementById("statusText");
-const btnLigar = document.getElementById("btnLigar");
-const btnParar = document.getElementById("btnParar");
+const firebaseConfig = {
+    // sua configuração do Firebase
+};
 
-let motorLigado = false;
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-btnLigar.addEventListener("click", async () => {
-    if (motorLigado) return;
-
-    const enviado = await enviarComando(true);
-
-    if (!enviado) {
-        alert("Erro ao comunicar com o Firebase.");
-        return;
+export async function enviarComando(valor) {
+    try {
+        await set(ref(db, "motor"), valor);
+        return true;
+    } catch (erro) {
+        console.error(erro);
+        return false;
     }
-
-    motorLigado = true;
-    motorArea.classList.add("running");
-    status.classList.add("running");
-    statusText.textContent = "MOTOR LIGADO";
-});
-
-btnParar.addEventListener("click", async () => {
-    if (!motorLigado) return;
-
-    const enviado = await enviarComando(false);
-
-    if (!enviado) {
-        alert("Erro ao comunicar com o Firebase.");
-        return;
-    }
-
-    motorLigado = false;
-    motorArea.classList.remove("running");
-    status.classList.remove("running");
-    statusText.textContent = "MOTOR PARADO";
-});
+}

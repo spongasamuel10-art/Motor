@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Controle do Motor</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,40 +14,39 @@
 
         <h1>CONTROLE DO MOTOR</h1>
 
-        <p class="subtitle">Sistema de reversão • ESP32</p>
+    <p class="subtitle">
+        Sistema de reversão • ESP32
+    </p>
 
-        <!-- STATUS -->
         <div class="status" id="status">
             <span class="status-light"></span>
             <span id="statusText">MOTOR PARADO</span>
         </div>
 
-        <!-- BOTÃO DO MOTOR -->
         <div class="motor-area" id="motorArea">
 
             <div class="motor-ring"></div>
 
             <div class="arrow"></div>
 
-            <div class="motor-button" id="motorButton">
+            <div class="motor-button">
                 <div class="motor-icon">⚙</div>
                 <div class="motor-text">MOTOR</div>
             </div>
 
         </div>
 
-        <!-- CONTROLES -->
         <div class="controls">
 
             <button
-                class="control-button activate"
-                onclick="startMotor()">
+                id="btnLigar"
+                class="control-button activate">
                 ACIONAR
             </button>
 
             <button
-                class="control-button stop"
-                onclick="stopMotor()">
+                id="btnParar"
+                class="control-button stop">
                 PARAR
             </button>
 
@@ -57,7 +54,7 @@
 
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 
 </body>
 
